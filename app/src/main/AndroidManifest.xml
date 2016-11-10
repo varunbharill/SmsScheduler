@@ -25,14 +25,20 @@
         </receiver>
         <receiver android:name="com.github.yeriomin.smsscheduler.AlarmReceiver" android:exported="false" >
             <intent-filter>
-                <action android:name="com.github.yeriomin.smsscheduler.AlarmReceiver.INTENT_FILTER" />
+                <action android:name="smsschedulerAlarmReceiverINTENT_FILTER" />
             </intent-filter>
         </receiver>
         <receiver android:name="com.github.yeriomin.smsscheduler.SmsSentReceiver" />
         <receiver android:name="com.github.yeriomin.smsscheduler.SmsDeliveredReceiver" />
-        <service android:name="com.github.yeriomin.smsscheduler.SmsSenderService" android:exported="false" >
+        <!--<service android:name="com.github.yeriomin.smsscheduler.SmsSenderService" android:exported="false" >-->
+            <!--<intent-filter>-->
+                <!--<action android:name="com.github.yeriomin.smsscheduler.AlarmReceiver.INTENT_FILTER" />-->
+            <!--</intent-filter>-->
+        <!--</service>-->
+        <!--vbharill modified code-->
+        <service android:name="com.github.yeriomin.smsscheduler.SmsSenderService" android:exported="true" android:enabled="true">
             <intent-filter>
-                <action android:name="com.github.yeriomin.smsscheduler.AlarmReceiver.INTENT_FILTER" />
+                <action android:name="smsschedulerAlarmReceiverINTENT_FILTER" />
             </intent-filter>
         </service>
         <service android:name="com.github.yeriomin.smsscheduler.SmsSentService" />

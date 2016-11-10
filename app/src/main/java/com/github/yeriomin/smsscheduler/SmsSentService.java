@@ -27,6 +27,11 @@ public class SmsSentService extends IntentService {
             throw new RuntimeException("No SMS id provided with intent");
         }
         SmsModel sms = DbHelper.getDbHelper(context).get(smsId);
+        //vbharill modified code
+        if(sms == null) {
+            return;
+        }
+        //
         String errorId = "";
         String errorString = "";
         String title = context.getString(R.string.notification_title_failure);

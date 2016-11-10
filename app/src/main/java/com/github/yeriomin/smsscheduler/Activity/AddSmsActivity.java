@@ -330,6 +330,16 @@ public class AddSmsActivity extends Activity {
     private PendingIntent getAlarmPendingIntent(SmsModel sms) {
         Intent intent = new Intent(AlarmReceiver.INTENT_FILTER);
         intent.putExtra(DbHelper.COLUMN_TIMESTAMP_CREATED, sms.getTimestampCreated());
+
+        //vbharill modified code
+        intent.putExtra(DbHelper.COLUMN_RECIPIENT_NAME, sms.getRecipientName());
+        intent.putExtra(DbHelper.COLUMN_MESSAGE,sms.getMessage());
+        intent.putExtra(DbHelper.COLUMN_RECIPIENT_NUMBER,sms.getRecipientNumber());
+        intent.putExtra(DbHelper.COLUMN_TIMESTAMP_CREATED, sms.getTimestampCreated());
+        intent.putExtra(DbHelper.COLUMN_RESULT,sms.getResult());
+        intent.putExtra(DbHelper.COLUMN_STATUS,sms.getStatus());
+        intent.putExtra(DbHelper.COLUMN_TIMESTAMP_SCHEDULED, sms.getTimestampScheduled());
+        //
         return PendingIntent.getBroadcast(
                 this,
                 sms.getId(),

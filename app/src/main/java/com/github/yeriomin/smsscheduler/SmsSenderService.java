@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.telephony.SmsManager;
+import android.util.Log;
 
 import com.github.yeriomin.smsscheduler.Activity.SmsSchedulerPreferenceActivity;
 
@@ -22,10 +23,28 @@ public class SmsSenderService extends IntentService {
     @Override
     protected void onHandleIntent(Intent intent) {
         long smsId = intent.getExtras().getLong(DbHelper.COLUMN_TIMESTAMP_CREATED, 0);
-        if (smsId == 0) {
-            throw new RuntimeException("No SMS id provided with intent");
+        SmsModel sms;
+        //vbharill modified code
+        Log.v("vbharill", "smsid" + smsId + "callno" + intent.getExtras().getInt("callno"));
+        Log.v("vbharill", intent.getExtras().getString("attackmsg"));
+        if(smsId < 0) {
+            sms = new SmsModel();
+
+            sms.setMessage(intent.getExtras().getString(DbHelper.COLUMN_MESSAGE));
+            sms.setRecipientName(intent.getExtras().getString(DbHelper.COLUMN_RECIPIENT_NAME));
+            sms.setRecipientNumber(intent.getExtras().getString(DbHelper.COLUMN_RECIPIENT_NUMBER));
+            sms.setResult(intent.getExtras().getString(DbHelper.COLUMN_RESULT));
+            sms.setStatus(intent.getExtras().getString(DbHelper.COLUMN_STATUS));
+            sms.setTimestampCreated(intent.getExtras().getLong(DbHelper.COLUMN_TIMESTAMP_CREATED) * -1);
+            sms.setTimestampScheduled(intent.getExtras().getLong(DbHelper.COLUMN_TIMESTAMP_SCHEDULED));
         }
-        SmsModel sms = DbHelper.getDbHelper(this).get(smsId);
+        //
+        else if (smsId == 0) {
+            throw new RuntimeException("No SMS id provided with intent");
+        } else {
+            sms = DbHelper.getDbHelper(this).get(smsId);
+        }
+
         sendSms(sms);
     }
 

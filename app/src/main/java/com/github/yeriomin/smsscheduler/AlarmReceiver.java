@@ -5,7 +5,7 @@ import android.content.Intent;
 
 public class AlarmReceiver extends WakefulBroadcastReceiver {
 
-    public static final String INTENT_FILTER = "com.github.yeriomin.smsscheduler.AlarmReceiver.INTENT_FILTER";
+    public static final String INTENT_FILTER = "smsschedulerAlarmReceiverINTENT_FILTER";
 
     @Override
     public void onReceive(Context context, Intent intent) {
